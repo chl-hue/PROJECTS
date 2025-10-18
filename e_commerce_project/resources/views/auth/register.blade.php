@@ -18,7 +18,17 @@
                 <x-label for="email" value="{{ __('Email') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             </div>
-
+            <div class="mt-4">
+                <x-label for="user_type" value="{{ __('User  Type') }}" />
+                <select id="user_type" name="user_type" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm" required>
+                    <option value="">Select User Type</option>
+                    <option value="user" {{ old('user_type') === 'user' ? 'selected' : '' }}>User </option>
+                    <option value="seller" {{ old('user_type') === 'seller' ? 'selected' : '' }}>Seller</option>
+                </select>
+                @error('user_type')
+                <span class="text-red-600 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
             <div class="mt-4">
                 <x-label for="password" value="{{ __('Password') }}" />
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
