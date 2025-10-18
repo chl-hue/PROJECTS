@@ -16,3 +16,18 @@ Route::middleware([
     })->name('dashboard');
 });
 
+// Admin Routes
+Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function() {
+    Route::get('dashboard', 'AdminController@dashboard')->name('admin.dashboard');
+});
+
+// Seller Routes
+Route::prefix('seller')->namespace('App\Http\Controllers\Seller')->group(function() {
+    Route::get('dashboard', 'SellerController@dashboard')->name('seller.dashboard');
+});
+
+// Customer Routes
+Route::prefix('customer')->namespace('App\Http\Controllers\Customer')->group(function() {
+    Route::get('dashboard', 'CustomerController@dashboard')->name('customer.dashboard');
+});
+
