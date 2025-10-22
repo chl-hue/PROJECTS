@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,3 +32,65 @@ Route::prefix('customer')->namespace('App\Http\Controllers\Customer')->group(fun
     Route::get('dashboard', 'CustomerController@dashboard')->name('customer.dashboard');
 });
 
+// Dashboard Routes (Para sa ating Sidebar)
+Route::middleware(['auth', 'verified'])->group(function () {
+    
+    // Overview (Dashboard) Route
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // Products Route
+    Route::get('/products', function () {
+        // I-assume natin na ipapasa mo ang data dito galing sa isang Controller
+        // Para sa demo, magre-render lang tayo ng view.
+        return view('products.index');
+    })->name('products.index'); // <-- Ito ang kulang!
+
+    // Customers Route
+    Route::get('/customers', function () {
+        return view('customers.index');
+    })->name('customers.index');
+
+    // Reports Route
+    Route::get('/reports', function () {
+        return view('reports.index');
+    })->name('reports.index');
+
+    // Settings Route
+    Route::get('/settings', function () {
+        return view('settings.index');
+    })->name('settings.index');
+    
+});
+
+// ... Iba pang uses...
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    
+    // OVERVIEW (DASHBOARD) ROUTE
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // PRODUCT MANAGEMENT ROUTES
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::post('/products', [ProductController::class, 'storeProduct'])->name('products.store');
+    Route::post('/categories', [ProductController::class, 'storeCategory'])->name('categories.store');
+
+    // CUSTOMERS ROUTE
+    Route::get('/customers', function () {
+        return view('customers.index');
+    })->name('customers.index');
+
+    // REPORTS ROUTE
+    Route::get('/reports', function () {
+        return view('reports.index');
+    })->name('reports.index');
+
+    // SETTINGS ROUTE
+    Route::get('/settings', function () {
+        return view('settings.index');
+    })->name('settings.index'); // <-- Ito ang nagko-complete ng navigation
+    
+});

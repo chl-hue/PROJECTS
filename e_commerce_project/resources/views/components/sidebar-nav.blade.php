@@ -15,22 +15,22 @@
         </x-sidebar-link>
 
         {{-- Products Link --}}
-        <x-sidebar-link href="#" :active="$active === 'products'">
+        <x-sidebar-link :href="route('products.index')" :active="request()->routeIs('products.index')">
             {{ __('Products') }}
         </x-sidebar-link>
         
         {{-- Customers Link --}}
-        <x-sidebar-link href="#" :active="$active === 'customers'">
+        <x-sidebar-link :href="route('customers.index')" :active="request()->routeIs('customers.index')">
             {{ __('Customers') }}
         </x-sidebar-link>
         
         {{-- Reports Link --}}
-        <x-sidebar-link href="#" :active="$active === 'reports'">
+        <x-sidebar-link :href="route('reports.index')" :active="request()->routeIs('reports.index')">
             {{ __('Reports') }}
         </x-sidebar-link>
         
         {{-- Settings Link --}}
-        <x-sidebar-link href="#" :active="$active === 'settings'">
+        <x-sidebar-link :href="route('settings.index')" :active="request()->routeIs('settings.index')">
             {{ __('Settings') }}
         </x-sidebar-link>
 

@@ -7,7 +7,7 @@
 
         <title>{{ config('app.name', 'GlamourGlow') }}</title>
 
-        
+
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
         
@@ -23,11 +23,11 @@
     </head>
     <body class="font-sans antialiased">
         
-        {{-- UPDATED: Flex container para sa Sidebar at Content --}}
+        {{-- UPDATED: Flex container for Sidebar and Content --}}
         <div class="min-h-screen bg-gray-50 flex">
             
             <div class="w-64 flex-shrink-0">
-                {{-- Pwede kang magpasa ng active state dito galing sa dashboard.blade.php --}}
+                {{-- Pass active to highlight the correct link --}}
                 <x-sidebar-nav :active="$active ?? ''" />
             </div>
 
