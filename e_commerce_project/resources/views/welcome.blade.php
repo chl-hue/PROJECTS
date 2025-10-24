@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GlamourGlow | Beauty in Every Shade</title>
+    <title>MaeUbeauty | Beauty in Every Shade</title>
     
     <!-- Load Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,7 +24,7 @@
 
     <!-- Navbar - Fixed at the top, clean white background with rose accent -->
     <nav class="bg-white border-b border-rose-100 shadow-sm py-4 px-6 md:px-12 flex justify-between items-center sticky top-0 z-10">
-        <div class="text-3xl font-extrabold text-rose-600 tracking-tight">GlamourGlow</div>
+        <div class="text-3xl font-extrabold text-rose-600 tracking-tight">MaeUbeauty</div>
         <div class="space-x-2 flex items-center">
             <!-- Corrected Login Link to original Laravel Blade format -->
             <a href="{{ route('login') }}" class="px-4 py-2 text-gray-700 rounded-full hover:bg-rose-50 transition duration-300 text-sm font-medium">Login</a>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="p-6">
                     <h3 class="text-xl font-semibold text-gray-800 mb-1">Ruby Lipstick</h3>
-                    <p class="text-rose-600 text-2xl font-extrabold mb-4">$19.99</p>
+                    <p class="text-rose-600 text-2xl font-extrabold mb-4"></p>
                     <a href="#" class="block text-center bg-rose-500 text-white py-3 font-medium rounded-xl hover:bg-rose-600 transition duration-300">Add to Bag</a>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="p-6">
                     <h3 class="text-xl font-semibold text-gray-800 mb-1">Rosy Blush</h3>
-                    <p class="text-rose-600 text-2xl font-extrabold mb-4">$14.99</p>
+                    <p class="text-rose-600 text-2xl font-extrabold mb-4"></p>
                     <a href="#" class="block text-center bg-rose-500 text-white py-3 font-medium rounded-xl hover:bg-rose-600 transition duration-300">Add to Bag</a>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                 </div>
                 <div class="p-6">
                     <h3 class="text-xl font-semibold text-gray-800 mb-1">Smooth Foundation</h3>
-                    <p class="text-rose-600 text-2xl font-extrabold mb-4">$24.99</p>
+                    <p class="text-rose-600 text-2xl font-extrabold mb-4"></p>
                     <a href="#" class="block text-center bg-rose-500 text-white py-3 font-medium rounded-xl hover:bg-rose-600 transition duration-300">Add to Bag</a>
                 </div>
             </div>
@@ -123,7 +123,7 @@
                 </div>
                 <div class="p-6">
                     <h3 class="text-xl font-semibold text-gray-800 mb-1">Glam Eyeshadow</h3>
-                    <p class="text-rose-600 text-2xl font-extrabold mb-4">$22.99</p>
+                    <p class="text-rose-600 text-2xl font-extrabold mb-4"></p>
                     <a href="#" class="block text-center bg-rose-500 text-white py-3 font-medium rounded-xl hover:bg-rose-600 transition duration-300">Add to Bag</a>
                 </div>
             </div>
@@ -132,7 +132,7 @@
 
     <!-- Footer - Clean and subtle matching background -->
     <footer class="bg-rose-50 py-8 mt-16 text-center text-gray-600 border-t border-rose-100">
-        <p>&copy; 2024 GlamourGlow. All rights reserved.</p>
+        <p>&copy; MaeUbeauty. All rights reserved.</p>
     </footer>
 
 </body>

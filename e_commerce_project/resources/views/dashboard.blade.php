@@ -2,9 +2,9 @@
 <x-app-layout active="overview">
     <x-slot name="header">
         <h2 class="font-bold text-3xl text-gray-800 leading-tight">
-            {{ __('Welcome Back, Admin!') }}
+            {{ __('Welcome!') }}
         </h2>
-        <p class="text-sm text-gray-500">Dashboard Overview for GlamourGlow</p>
+        <p class="text-sm text-gray-500">Dashboard Overview for MaeUbeauty</p>
     </x-slot>
 
     <div class="py-6">

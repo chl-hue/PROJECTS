@@ -3,7 +3,7 @@
 <div class="flex flex-col h-full bg-white border-r border-gray-200">
     <div class="shrink-0 flex items-center p-6 border-b border-gray-100">
         <a href="{{ route('dashboard') }}" class="text-3xl font-extrabold text-rose-600 tracking-tight">
-            GlamourGlow
+            MaeUbeauty
         </a>
     </div>
 
