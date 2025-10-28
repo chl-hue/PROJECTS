@@ -2,65 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\ProductCategory;
-use Illuminate\Validation\Rule;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource (Products Page).
-     */
     public function index()
     {
-        // Kumuha ng products at categories na may product count
-        $products = Product::with('category')->latest()->get();
-        $categories = ProductCategory::withCount('products')->orderBy('name')->get();
-        
-        return view('products.index', [
-            'products' => $products,
-            'categories' => $categories,
-            'active' => 'products', 
-        ]);
+        $products = Product::with('category')->get();
+        $categories = Category::all();
+        return view('products.index', compact('products', 'categories'));
     }
 
-    /**
-     * Store a newly created product category in storage.
-     */
-    public function storeCategory(Request $request)
+    public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:product_categories,name'],
-            'description' => ['nullable', 'string'],
+        $validated = $request->validate([
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        ProductCategory::create($request->only(['name', 'description']));
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('products', 'public');
+        }
 
-        return redirect()->route('products.index')->with('status', 'Category added successfully!');
+        Product::create($validated);
+
+        return redirect()->route('products.index')->with('status', 'Product added successfully!');
     }
 
-    /**
-     * Store a newly created product in storage.
-     */
-    public function storeProduct(Request $request)
+    public function destroy(Product $product)
     {
-        $request->validate([
-            'product_name' => ['required', 'string', 'max:255', 'unique:products,name'],
-            'category_id' => ['required', 'exists:product_categories,id'],
-            'price' => ['required', 'numeric', 'min:0.01'],
-            'stock' => ['required', 'integer', 'min:0'],
-            'long_description' => ['nullable', 'string'],
-        ]);
+        if ($product->image) {
+            \Storage::disk('public')->delete($product->image);
+        }
 
-        Product::create([
-            'name' => $request->product_name,
-            'category_id' => $request->category_id,
-            'price' => $request->price,
-            'stock_quantity' => $request->stock,
-            'long_description' => $request->long_description,
-        ]);
+        $product->delete();
 
-        return redirect()->route('products.index')->with('status', 'New Product added successfully!');
+        return redirect()->route('products.index')->with('status', 'Product deleted successfully!');
     }
 }

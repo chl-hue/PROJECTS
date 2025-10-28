@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -77,7 +78,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::post('/products', [ProductController::class, 'storeProduct'])->name('products.store');
     Route::post('/categories', [ProductController::class, 'storeCategory'])->name('categories.store');
-
+    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    
     // CUSTOMERS ROUTE
     Route::get('/customers', function () {
         return view('customers.index');
@@ -93,4 +96,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('settings.index');
     })->name('settings.index'); // <-- Ito ang nagko-complete ng navigation
     
+});
+
+    Route::middleware(['auth'])->group(function () {
+    Route::resource('categories', CategoryController::class)->except(['create', 'edit', 'show']);
+
+    Route::resource('categories', CategoryController::class);
+    Route::resource('products', ProductController::class);
 });

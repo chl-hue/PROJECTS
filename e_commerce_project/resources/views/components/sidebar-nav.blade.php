@@ -14,6 +14,11 @@
             {{ __('Overview') }}
         </x-sidebar-link>
 
+        {{-- Categories Link --}}
+        <x-sidebar-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+            {{ __('Categories') }}
+        </x-sidebar-link>
+
         {{-- Products Link --}}
         <x-sidebar-link :href="route('products.index')" :active="request()->routeIs('products.index')">
             {{ __('Products') }}

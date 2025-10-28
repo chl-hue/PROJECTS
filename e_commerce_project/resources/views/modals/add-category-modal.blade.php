@@ -1,41 +1,64 @@
-<x-modal name="add-category-modal" maxWidth="md">
-    <div class="p-6">
-        <h3 class="text-2xl font-bold text-gray-800 mb-4">{{ __('Add New Category') }}</h3>
+<!-- resources/views/modals/add-category-modal.blade.php -->
+<div 
+    x-data="{ open: false }"
+    x-on:open-modal.window="if($event.detail === 'add-category-modal') open = true"
+    x-show="open"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    style="display: none;"
+>
+    <div 
+        class="bg-white p-6 rounded shadow-lg w-96 relative"
+        x-transition
+        @click.away="open = false"
+    >
+        <h2 class="text-xl font-semibold mb-4">Add New Category</h2>
 
-        <form method="POST" action="{{ route('categories.store') }}"> 
+        <form action="{{ route('categories.store') }}" method="POST">
             @csrf
-            
-            <div class="mb-4">
-                <label for="name" class="block font-medium text-sm text-gray-700">{{ __('Category Name') }}</label>
-                <input id="name" name="name" type="text" 
-                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-rose-500 focus:ring-rose-500" 
-                       required autofocus value="{{ old('name') }}" />
-                
-                {{-- DISPLAY ERROR --}}
-                @error('name')
-                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                @enderror
+            <div class="mb-3">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Category Name</label>
+                <input 
+                    type="text" 
+                    name="name" 
+                    placeholder="Enter category name" 
+                    class="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-rose-500" 
+                    required
+                >
             </div>
 
-            <div class="mb-6">
-                <label for="description" class="block font-medium text-sm text-gray-700">{{ __('Description (Optional)') }}</label>
-                <textarea id="description" name="description" rows="3" 
-                          class="mt-1 block w-full rounded-md shadow-sm border-gray-300 focus:border-rose-500 focus:ring-rose-500">{{ old('description') }}</textarea>
-                
-                {{-- DISPLAY ERROR --}}
-                @error('description')
-                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                @enderror
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <textarea 
+                    name="description" 
+                    placeholder="Enter description" 
+                    class="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-rose-500"
+                ></textarea>
             </div>
-            
-            <div class="flex justify-end">
-                <button type="button" x-on:click="$dispatch('close-modal')" class="px-4 py-2 text-gray-600 rounded-md hover:bg-gray-100 transition duration-150 mr-3">
-                    {{ __('Cancel') }}
+
+            <div class="flex justify-end space-x-2">
+                <button 
+                    type="button" 
+                    x-on:click="open = false" 
+                    class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition"
+                >
+                    Cancel
                 </button>
-                <button type="submit" class="px-4 py-2 bg-rose-600 text-white font-bold rounded-md hover:bg-rose-700 transition duration-150">
-                    {{ __('Save Category') }}
+                <button 
+                    type="submit" 
+                    class="px-4 py-2 bg-rose-600 text-white rounded hover:bg-rose-700 transition"
+                >
+                    Save
                 </button>
             </div>
         </form>
+
+        <!-- Close button (optional) -->
+        <button 
+            type="button" 
+            x-on:click="open = false" 
+            class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+        >
+            &times;
+        </button>
     </div>
-</x-modal>
+</div>

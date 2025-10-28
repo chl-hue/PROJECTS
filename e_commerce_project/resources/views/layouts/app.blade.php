@@ -7,13 +7,15 @@
 
         <title>{{ config('app.name', 'GlamourGlow') }}</title>
 
-
+        
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=inter:400,500,600&display=swap" rel="stylesheet" />
         
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         
         <script src="https://cdn.tailwindcss.com"></script>
+        <script src="//unpkg.com/alpinejs" defer></script>
+
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
             body {
