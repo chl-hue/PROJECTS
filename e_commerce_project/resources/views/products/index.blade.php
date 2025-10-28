@@ -23,15 +23,13 @@
                 </h3>
 
                 {{-- 🔘 Add New Product Button --}}
-                <button 
-                    x-data
-                    x-on:click.prevent="$dispatch('open-modal', 'add-product-modal')" 
-                    class="flex items-center px-4 py-2 bg-rose-600 text-white font-semibold rounded-lg hover:bg-rose-700 transition duration-150 shadow-lg shadow-rose-200/50">
+                <a href="{{ route('products.create') }}"
+                   class="flex items-center px-4 py-2 bg-rose-600 text-white font-semibold rounded-lg hover:bg-rose-700 transition duration-150 shadow-lg shadow-rose-200/50">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
                     {{ __('Add New Product') }}
-                </button>
+                </a>
             </div>
 
             {{-- 📋 Products Table --}}
@@ -66,6 +64,8 @@
                                         <td class="px-6 py-4 text-sm text-gray-500">₱{{ number_format($product->price, 2) }}</td>
                                         <td class="px-6 py-4 text-sm text-gray-500">{{ $product->stock }}</td>
                                         <td class="px-6 py-4 text-right text-sm font-medium">
+                                            <a href="{{ route('products.edit', $product->id) }}" class="text-rose-600 hover:text-rose-900 font-semibold mr-2">Edit</a>
+
                                             <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -91,66 +91,4 @@
             </div>
         </div>
     </div>
-
-    {{-- 🟢 Add Product Modal --}}
-    <x-modal name="add-product-modal" maxWidth="2xl">
-        <div class="p-6">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">{{ __('Add New Product') }}</h3>
-
-            <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
-                @csrf
-
-                {{-- Category --}}
-                <div class="mb-4">
-                    <label for="category_id" class="block font-medium text-sm text-gray-700">{{ __('Category') }}</label>
-                    <select name="category_id" id="category_id" required class="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-rose-500 focus:border-rose-500">
-                        <option value="">Select a category</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                {{-- Product Name --}}
-                <div class="mb-4">
-                    <label for="name" class="block font-medium text-sm text-gray-700">{{ __('Product Name') }}</label>
-                    <input id="name" name="name" type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-rose-500 focus:border-rose-500" required />
-                </div>
-
-                {{-- Price and Stock --}}
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                        <label for="price" class="block font-medium text-sm text-gray-700">{{ __('Price') }}</label>
-                        <input id="price" name="price" type="number" step="0.01" min="0" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-rose-500 focus:border-rose-500" required />
-                    </div>
-                    <div>
-                        <label for="stock" class="block font-medium text-sm text-gray-700">{{ __('Stock') }}</label>
-                        <input id="stock" name="stock" type="number" min="0" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-rose-500 focus:border-rose-500" required />
-                    </div>
-                </div>
-
-                {{-- Description --}}
-                <div class="mb-4">
-                    <label for="description" class="block font-medium text-sm text-gray-700">{{ __('Description') }}</label>
-                    <textarea id="description" name="description" rows="3" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-rose-500 focus:border-rose-500"></textarea>
-                </div>
-
-                {{-- Image Upload --}}
-                <div class="mb-6">
-                    <label for="image" class="block font-medium text-sm text-gray-700">{{ __('Product Image (Optional)') }}</label>
-                    <input type="file" name="image" id="image" class="mt-1 block w-full text-sm text-gray-700 border border-gray-300 rounded-md cursor-pointer focus:outline-none focus:ring-rose-500 focus:border-rose-500">
-                </div>
-
-                {{-- Buttons --}}
-                <div class="flex justify-end">
-                    <button type="button" x-on:click="$dispatch('close-modal', 'add-product-modal')" class="px-4 py-2 text-gray-600 rounded-md hover:bg-gray-100 transition duration-150 mr-3">
-                        {{ __('Cancel') }}
-                    </button>
-                    <button type="submit" class="px-4 py-2 bg-rose-600 text-white font-bold rounded-md hover:bg-rose-700 transition duration-150">
-                        {{ __('Save Product') }}
-                    </button>
-                </div>
-            </form>
-        </div>
-    </x-modal>
 </x-app-layout>

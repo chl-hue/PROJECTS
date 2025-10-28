@@ -99,8 +99,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
     Route::middleware(['auth'])->group(function () {
-    Route::resource('categories', CategoryController::class)->except(['create', 'edit', 'show']);
-
-    Route::resource('categories', CategoryController::class);
-    Route::resource('products', ProductController::class);
+        Route::resource('categories', CategoryController::class)->except(['show']);
+        Route::resource('products', ProductController::class)->except(['show']);
 });

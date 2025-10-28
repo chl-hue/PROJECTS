@@ -23,16 +23,13 @@
                 </h3>
 
                 <!-- Add Category Button -->
-                <button 
-                    x-data
-                    x-on:click="$dispatch('open-add-category')"
-                    class="flex items-center px-4 py-2 bg-rose-600 text-white font-semibold rounded-lg hover:bg-rose-700 transition duration-150 shadow-lg shadow-rose-200/50"
-                >
+                <a href="{{ route('categories.create') }}" 
+                   class="flex items-center px-4 py-2 bg-rose-600 text-white font-semibold rounded-lg hover:bg-rose-700 transition duration-150 shadow-lg shadow-rose-200/50">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
                     {{ __('Add New Category') }}
-                </button>
+                </a>
             </div>
 
             {{-- 📋 Categories Table --}}
@@ -58,11 +55,9 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $category->products_count ?? 0 }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
                                             {{-- Edit --}}
-                                            <button 
-                                                x-on:click="$dispatch('open-edit-category-modal', { id: {{ $category->id }}, name: '{{ $category->name }}', description: '{{ $category->description ?? '' }}' })"
-                                                class="text-rose-600 hover:text-rose-900 font-semibold">
+                                            <a href="{{ route('categories.edit', $category->id) }}" class="text-rose-600 hover:text-rose-900 font-semibold">
                                                 Edit
-                                            </button>
+                                            </a>
 
                                             {{-- Delete --}}
                                             <form action="{{ route('categories.destroy', $category->id) }}" method="POST" class="inline">
@@ -70,7 +65,8 @@
                                                 @method('DELETE')
                                                 <button type="submit" 
                                                     onclick="return confirm('Are you sure you want to delete this category?')"
-                                                    class="text-gray-500 hover:text-gray-700 font-semibold">
+                                                    class="text-gray-500 hover:text-gray-700 font-semibold"
+                                                >
                                                     Delete
                                                 </button>
                                             </form>
@@ -91,78 +87,4 @@
 
         </div>
     </div>
-
-    {{-- 🟢 Add Category Modal --}}
-    <div 
-        x-data="{ open: false }"
-        x-on:open-add-category.window="open = true"
-        x-show="open"
-        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-        style="display: none;"
-    >
-        <div 
-            class="bg-white p-6 rounded shadow-lg w-96 relative"
-            x-transition:enter="transition ease-out duration-300"
-            x-transition:enter-start="opacity-0 scale-90"
-            x-transition:enter-end="opacity-100 scale-100"
-            x-transition:leave="transition ease-in duration-200"
-            x-transition:leave-start="opacity-100 scale-100"
-            x-transition:leave-end="opacity-0 scale-90"
-            @click.away="open = false"
-        >
-            <h2 class="text-xl font-semibold mb-4">Add New Category</h2>
-
-            <form action="{{ route('categories.store') }}" method="POST">
-                @csrf
-                <div class="mb-3">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Category Name</label>
-                    <input 
-                        type="text" 
-                        name="name" 
-                        placeholder="Enter category name" 
-                        class="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-rose-500" 
-                        required
-                    >
-                </div>
-
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                    <textarea 
-                        name="description" 
-                        placeholder="Enter description" 
-                        class="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-rose-500"
-                    ></textarea>
-                </div>
-
-                <div class="flex justify-end space-x-2">
-                    <button 
-                        type="button" 
-                        x-on:click="open = false" 
-                        class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 transition"
-                    >
-                        Cancel
-                    </button>
-                    <button 
-                        type="submit" 
-                        class="px-4 py-2 bg-rose-600 text-white rounded hover:bg-rose-700 transition"
-                    >
-                        Save
-                    </button>
-                </div>
-            </form>
-
-            <!-- Close button -->
-            <button 
-                type="button" 
-                x-on:click="open = false" 
-                class="absolute top-2 right-2 text-gray-500 text-2xl font-bold"
-            >
-                &times;
-            </button>
-        </div>
-    </div>
-
 </x-app-layout>
-
-{{-- Alpine.js --}}
-<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
